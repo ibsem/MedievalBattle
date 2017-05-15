@@ -9,7 +9,7 @@ public class CharacterCreation {
     }
 
     public void createMainCharacter(String name, String fightStyle) {
-        SqliteConnection conn = new SqliteConnection();
+        HSqlConnection conn = new HSqlConnection();
         conn.connect();
 
     }

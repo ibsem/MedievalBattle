@@ -5,6 +5,7 @@ public class Player {
 	private int attack = 25;
 	private int defense = 10;
 	private int luck = 100;
+	private int teste;
 	
 	public Player(String n, String a, int lf, int atk, int def, int lk){
 		setName(n);

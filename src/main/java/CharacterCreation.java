@@ -4,15 +4,18 @@
 
 public class CharacterCreation {
     public static void main(String []args){
-        CharacterCreation c1 = new CharacterCreation();
+        CharacterCreation c1 = new CharacterCreation(); 
         c1.createMainCharacter("Olavo", "Mago");
+        
     }
 
     public void createMainCharacter(String name, String fightStyle) {
-        HSqlConnection conn = new HSqlConnection();
+        SqliteConnection conn = new SqliteConnection();
         conn.connect();
+        
 
     }
+   
 
 
 

@@ -10,6 +10,7 @@ public class Battle {
 	public void battle(Player caracter,Player enemy)throws IOException {
 		private boolean turn;// 'true' vez do jogador , 'false' vez do inimigo
 		private int buffer;// variavel responsavel por guardar os cauculos
+		private int special;
 		caracter.setLife = 100;
 		enemy.setLife = 100;
 		do{

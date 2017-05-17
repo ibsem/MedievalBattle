@@ -55,7 +55,46 @@ public class Battle {
 						System.out.println("Invalid Moviment");
 				}
 				
+				public int attack(Player caracter, Player enemy){
+					if (caracter.getTurnAction == 'a'){
+						if(enemy.getTurnAction == 'd'){// caso o inimigo defenda
+							buffer = caracter.getAttack*10 - enemy.getDefense*10;
+							if (buffer > 0){//verifica se a defesa foi efetiva
+								enemy.setLife -= buffer;
+								turn = false;// troca pra vez do inimigo
+								return enemy.getLife;
+							}else{
+								turn = false;
+								return enemy.getLife;
+							}
+						}else{
+							enemy.setLife -= caracter.getAttack*10;// inimigo nao defendeu
+							turn = false;
+							return enemy.getLife;
+						}
+					}else{
+						if (enemy.getTurnAction == 'a'){
+							if(caracter.getTurnAction == 'd'){// caso o inimigo defenda
+								buffer = enemy.getAttack*10 - caracter.getDefense*10;
+								if (buffer > 0){//verifica se a defesa foi efetiva
+									caracter.setLife -= buffer;
+									turn = false;// troca pra vez do inimigo
+									return caracter.getLife;
+								}else{
+									turn = false;
+									return caracter.getLife;
+								}
+							}else{
+								caracter.setLife -= enemy.getAttack*10;// inimigo nao defendeu
+								turn = false;
+								return caracter.getLife;
+							}
+						}
+					}
+					return 0;
+				}
+
 			}
-		}while(caracter.life > 0 && enemy.life > 0)//verifica se alguem ja morreu
+		}while(caracter.getLife > 0 && enemy.getLife > 0)//verifica se alguem ja morreu
 	}
 }

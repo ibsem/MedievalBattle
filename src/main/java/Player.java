@@ -1,15 +1,16 @@
 public class Player {
 	private String name;
-	private String action;
-	private int life = 100;
-	private int attack = 25;
-	private int defense = 10;
-	private int luck = 100;
+	private String turnAction;
+	private int life;
+	private int attack;
+	private int defense;
+	private int luck;
 	private int teste;
+	private int special;
 	
-	public Player(String n, String a, int lf, int atk, int def, int lk){
+	public Player(String n, String ta, int lf, int atk, int def, int lk){
 		setName(n);
-		setAction(a);
+		setTurnAction(ta);
 		setLife(lf);
 		setAttack(atk);
 		setDefense(def);
@@ -30,14 +31,13 @@ public class Player {
 		return name;
 	}
 	
-	public void setAction(String a){
-		if(a.isEmpty()){
-			action = "Attack";
-		}else action = a;
+	public void setTurnAction(String ta){
+		if(ta.isEmpty()){				
+		} 
 	}
 		
-	public String getAction(){
-		return action;
+	public String getTurnAction(){
+		return turnAction;
 	}
 	public void setLife(int lf){
 		if(lf < 0){

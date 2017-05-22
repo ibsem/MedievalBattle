@@ -3,6 +3,12 @@
   <groupId>MedievalBattle</groupId>
   <artifactId>MedievalBattle</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.3.RELEASE</version>
+		<relativePath/> 
+	</parent>
   <dependencies>
     <dependency>
       <groupId>org.xerial</groupId>
@@ -10,10 +16,9 @@
       <version>3.7.2</version>
     </dependency>
     <dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-jdbc</artifactId>
-    <version>3.0.4.RELEASE</version>
-</dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
   </dependencies>
  <build>
       <sourceDirectory>src</sourceDirectory>

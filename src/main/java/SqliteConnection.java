@@ -2,10 +2,18 @@ import java.io.File;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.lang.Object;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.jdbc.datasource.init.ScriptUtils;
+
 
 
 /**
@@ -14,75 +22,64 @@ import java.lang.Object;
 
 public class SqliteConnection {
 	private static String url = "jdbc:sqlite:MedievalBattle.db";
+	private static final Logger LOGGER = Logger.getLogger( Class.class.getName() );
+	
 
-
-    public void connect() {
+    public Connection connect() {
 
         Connection conn = null;
         try {
         	//connects to the sqlite database MedievalBattle
         	Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection(url);
-
+          
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
+           return conn;
         }
     }
+    
     
     public void initDatabase(){
-    	
-    }
-
-    public void select(String sql){
-    	
-
+      if(!this.isDatabaseCreated()){
+    	try (Connection conn = this.connect()){
+    	  ScriptUtils.executeSqlScript(conn, new FileSystemResource("src/main/java/resources/initialData.sql"));
+    	  conn.close();
+    	}
+    	catch (Exception e) {
+    	  System.out.println("deu pau");
+		}
+      }else {
+    	  
+    	  LOGGER.log( Level.INFO, "Database already exists... moving on...");
+    	  
+      }
+      
     }
     
-    public void insert(String sql){
-    	
-    }
-    
-    public static void initFightStyles(){
-    	String sql = "INSERT INTO fight_style(name,attack,defense,luck) VALUES(?,?,?,?)";
+    public ResultSet getFightStyle(String style){
+        String sql = "SELECT * FROM fight_style WHERE name='"+ style+"';";
         
-        
-        try (Connection conn = DriverManager.getConnection(url);
-                Statement stmt = conn.createStatement()){
-        	
-            //stmt.execute(sql);
-            conn.close();
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+           return rs;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+		return null;
+    }
+  
+    public boolean isDatabaseCreated(){
+    	File f = new File("MedievalBattle.db");
+    	if(f.exists()) { 
+    	    return true;
+    	}
+    	return false;
+    }
     	
     }
-    
-    public static void createFightStylesTable() {
-    	//ceates Fight_Style Table(containes character classes)
-        String sql = "CREATE TABLE IF NOT EXISTS fight_style  (\n"
-                + "	id integer PRIMARY KEY AUTOINCREMENT,\n"
-                + "	name text NOT NULL,\n"
-                + "	attack int NOT NULL,\n"
-                + " defense int NOT NULL,\n"
-                + " luck int NOT NULL,\n"
-                + ");";
-        
-        try (Connection conn = DriverManager.getConnection(url);
-                Statement stmt = conn.createStatement()){
-            stmt.execute(sql);
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-}

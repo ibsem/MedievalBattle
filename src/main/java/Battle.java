@@ -25,7 +25,7 @@ public class Battle {
 						turn = false;
 					}else{
 						if(character.getTurnAction().equals("s")){
-							System.out.println("Escolha indisponivel");
+							System.out.println("Escolha indisponivel");//impedir o uso de 2 especiais
 							this.pickAction(character);
 						}else{
 							if(character.getTurnAction().equals("d")){

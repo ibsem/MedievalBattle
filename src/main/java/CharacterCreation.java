@@ -7,9 +7,10 @@ import java.sql.ResultSet;
  */
 
 public class CharacterCreation {
-	private SqliteConnection sqliteConnection = new SqliteConnection();
+//	private SqliteConnection sqliteConnection = new SqliteConnection();
 	
     public Player createMainCharacter(String name, String fightStyle) {
+      SqliteConnection sqliteConnection = new SqliteConnection();
       Player p1 = new Player();	
       try( Connection conection = sqliteConnection.connect();){
         FightStyle fs = sqliteConnection.getFightStyle("Warrior");

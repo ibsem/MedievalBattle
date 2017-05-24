@@ -8,6 +8,18 @@ public class Player {
 	private int teste;
 	private int special;  
 	
+	public int getSpecial() {
+		return special;
+	}
+
+	public void setSpecial(int special) {
+		this.special = special;
+	}
+
+	public String getName() {
+		return name;
+	}
+
 	public Player(String n, String ta, int lf, int atk, int def, int lk){
 		setName(n);
 		setTurnAction(ta);

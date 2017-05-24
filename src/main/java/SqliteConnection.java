@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileReader;
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
@@ -60,18 +60,23 @@ public class SqliteConnection {
       
     }
     
-    public ResultSet getFightStyle(String style){
-        String sql = "SELECT * FROM fight_style WHERE name='"+ style+"';";
-        
-        try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
-            
-           return rs;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+    public FightStyle getFightStyle(String style){
+      String sql = "SELECT * FROM fight_style WHERE name='"+ style+"';";
+      FightStyle fightStyle = new FightStyle();
+      try (Connection conn = this.connect();
+        Statement stmt  = conn.createStatement();
+        ResultSet rs    = stmt.executeQuery(sql)){
+        while(rs.next()){
+          fightStyle.setAttack(rs.getInt("attack"));
+          fightStyle.setDefense(rs.getInt("defese"));
+          fightStyle.setLuck(rs.getInt("luc"));
+          fightStyle.setSpecial(rs.getInt("special"));
+          return fightStyle;
         }
-		return null;
+       }catch (SQLException e) {
+           System.out.println(e.getMessage());
+       }
+	return null;
     }
   
     public boolean isDatabaseCreated(){

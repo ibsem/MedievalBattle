@@ -1,6 +1,6 @@
 public class Player {
 	private String name;
-	private String turnAction;
+	private String turnAction = null;
 	private int life;
 	private int attack;
 	private int defense;

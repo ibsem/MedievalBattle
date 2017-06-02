@@ -5,8 +5,7 @@ public class Player {
 	private int attack;
 	private int defense;
 	private int luck;
-	private int teste;
-	private int special;  
+	private int special;
 	
 	public Player(String n, String ta, int lf, int atk, int def, int lk){
 		setName(n);

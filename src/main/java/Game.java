@@ -11,7 +11,7 @@ public class Game {
 		Battle battle = new Battle();
 		String winner = battle.battle(p1, p2);
 		
-		System.out.println("The " + winner + "won!");		
+		System.out.println("O " + winner + "ganhou!");		
 	}
 	
 	public void initDatbase(){

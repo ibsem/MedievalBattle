@@ -32,8 +32,7 @@ public class Player {
 	}
 	
 	public void setTurnAction(String ta){
-		if(ta.isEmpty()){				
-		} 
+		turnAction = ta; 
 	}
 		
 	public String getTurnAction(){

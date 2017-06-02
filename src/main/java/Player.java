@@ -31,7 +31,7 @@ public class Player {
 	}
 	
 	public void setTurnAction(String ta){
-				turnAction = ta; 
+		turnAction = ta; 
 	}
 		
 	public String getTurnAction(){

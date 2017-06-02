@@ -5,92 +5,85 @@ import java.io.InputStreamReader;
 
 public class Battle {
 	private boolean turn = true;// 'true' vez do jogador , 'false' vez do inimigo
-	private boolean specialCharacter = true;
-	private boolean specialEnemy = true;
+	private boolean specialCharacter = true;// deixa o especial off apos o uso
 		
 	public void startBattle(Player character,Player enemy)throws IOException {//comeca a batalha
 		character.setLife(100);
 		enemy.setLife(100);
 		
 		do{
-			if(turn = true){
+			if(turn == true){
 				this.pickAction(character);
-				if(character.getTurnAction().equals("a")){
-					this.doAttack(character, enemy);
+				int action = this.doAction(character, enemy);
+				if(action == 1){
 					turn = false;
 				}else{
-					if(character.getTurnAction().equals("s") && specialCharacter == true){
-						this.doSpecial(character, enemy);
-						specialCharacter = false;
-						turn = false;
-					}else{
-						if(character.getTurnAction().equals("s")){
-							System.out.println("Escolha indisponivel");
-							this.pickAction(character);
-						}else{
-							if(character.getTurnAction().equals("d")){
-								turn = false;
-							}
-						}
-					}
-				}
-			}else{//comeca o turno do inimigo
+					this.pickAction(character);
+				}	
+			}else {
 				this.pickAction(enemy,3);
-				if(enemy.getTurnAction().equals("a")){
-					this.doAttack(enemy, character);
+				int action2 = this.doAction(enemy, character);
+				if(action2 == 1){
 					turn = true;
 				}else{
-					if(enemy.getTurnAction().equals("s") && specialEnemy == true){
-						this.doSpecial(enemy, character);
-						specialEnemy = false;
-						turn = true;
-					}else{
-						if(enemy.getTurnAction().equals("s")){
-							System.out.println("Escolha indisponivel");
-							this.pickAction(enemy);
-						}else{
-							if(enemy.getTurnAction().equals("d")){
-								turn = true;
-							}
-						}
-					}
+					this.pickAction(enemy);
 				}
-			}
-		}while(character.getLife() > 0 || enemy.getLife() > 0);
+			}	
+		}while(character.getLife() > 0 && enemy.getLife() > 0);
+	}
+	
+	public int doAction(Player character, Player enemy)throws IOException {
+		switch(character.getTurnAction()){
+			case "a":
+				this.doAttack(character, enemy);
+				return 1;
+			case "d":
+				return 1;
+			case "s":
+				if(specialCharacter == true){
+					this.doSpecial(character, enemy);
+					specialCharacter = false;
+				}else{
+					System.out.println("Especial bloqueado");
+					return 0;
+				}
+			default:
+				return 0;
+		}
 	}
 	
 	public void doAttack(Player character, Player enemy){//metodo para atacar
-		if (enemy.getTurnAction().equals(null)){
-			int damage = enemy.getLife() - (character.getAttack()*10);//calculo dano
-			enemy.setLife(damage);
-			System.out.println("the Enemy has lost "+ damage + " of his life");
-			System.out.println(enemy.getNome()+"'s life: "+ enemy.getLife());
-			System.out.println(character.getNome()+"'s life: "+ character.getLife());
+		if (enemy.getTurnAction() == null){
+			int damage =(character.getAttack()*10);//calculo dano
+			enemy.setLife(enemy.getLife() - damage);
+			System.out.println("O "+enemy.getNome()+" perdeu "+ damage + " de sua vida");
+			System.out.println(enemy.getNome()+" vida: "+ enemy.getLife());
+			System.out.println(character.getNome()+" vida: "+ character.getLife());
 		}else{
 			if(enemy.getTurnAction().equals("d")){//o proprio metodo ja verifica defesa
 				int damage = character.getAttack()*10 - enemy.getDefense()*10;
 				if(damage> 0){
 					enemy.setLife(enemy.getLife() - damage);
-					System.out.println("the Enemy has lost "+ damage + " of his life");
-					System.out.println(enemy.getNome()+"'s life: "+ enemy.getLife());
-					System.out.println(character.getNome()+"'s life: "+ character.getLife());
+					System.out.println("O "+enemy.getNome()+" perdeu "+ damage + " de sua vida");
+					System.out.println(enemy.getNome()+" vida: "+ enemy.getLife());
+					System.out.println(character.getNome()+" vida: "+ character.getLife());
 				}else{
-					System.out.println(enemy.getNome()+"'s life: "+ enemy.getLife());
-					System.out.println(character.getNome()+"'s life: "+ character.getLife());
+					System.out.println(enemy.getNome()+" vida: "+ enemy.getLife());
+					System.out.println(character.getNome()+" vida: "+ character.getLife());
 				}
 			}
 		}
 	}
 	
 	public void doSpecial(Player character, Player enemy){
-		int damage = enemy.getLife() - (character.getAttack()*20);//calcula o special sem chance de defesa
-		enemy.setLife(damage);
-		System.out.println("the "+enemy.getNome()+" has lost "+ damage + " of his life");
-		System.out.println(enemy.getNome()+"'s life: "+ enemy.getLife());
-		System.out.println(character.getNome()+"'s life: "+ character.getLife());
+		int damage =(character.getAttack()*20);//calcula o special sem chance de defesa
+		enemy.setLife(enemy.getLife() - damage);
+		System.out.println("O "+enemy.getNome()+" perdeu "+ damage + " de sua vida");
+		System.out.println(enemy.getNome()+" vida: "+ enemy.getLife());
+		System.out.println(character.getNome()+" vida: "+ character.getLife());
 	}
 	
-	public void pickAction(Player character)throws IOException {
+	public int pickAction(Player character)throws IOException {
 
 		System.out.println("Escolha sua Acao ");//permite a escolha da acao
 		System.out.println("1 - Attack");
@@ -102,35 +95,45 @@ public class Battle {
 	switch(playerChoice){ // permite ao usuario escolher a acao
 		case 1 :
 			character.setTurnAction("a");
+			System.out.println(character.getNome()+" escolheu ataque");
 			break;
 		case 2 :
 			character.setTurnAction("d");
+			System.out.println(character.getNome()+" escolheu defesa");
 			break;
 		case 3 :
 			character.setTurnAction("s");
+			System.out.println(character.getNome()+" escolheu especial");
 			break;
 		default :
-			System.out.println("Invalid Moviment");
+			System.out.println("Movimento Invalido");
+			return 0;
 	}
+	return 0;
 }
 	
-	public void pickAction(Player enemy,int randomNumber){		
+	public int pickAction(Player enemy,int randomNumber){		
 	
 		Random random = new Random();
 		int enemyChoice = random.nextInt(randomNumber);//escolhe a acao do inimigo
 	
 		switch(enemyChoice){ // inimigo escolhe acao
-			case 1 :
+			case 0 :
 				enemy.setTurnAction("a");
+				System.out.println(enemy.getNome()+" escolheu ataque");
+				break;
+			case 1 :
+				enemy.setTurnAction("d");
+				System.out.println(enemy.getNome()+" escolheu defesa");
 				break;
 			case 2 :
-				enemy.setTurnAction("d");
-				break;
-			case 3 :
 				enemy.setTurnAction("s");
+				System.out.println(enemy.getNome()+" escolheu especial");
 				break;
 			default :
-				System.out.println("Invalid Moviment");
+				System.out.println("Movimento Invalido");
+				return 0;
 		}
+		return 0;
 	}
 }

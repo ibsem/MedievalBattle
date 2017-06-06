@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileReader;
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
@@ -37,9 +37,8 @@ public class SqliteConnection {
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-           return conn;
         }
+        return conn;
     }
     
     
@@ -59,27 +58,9 @@ public class SqliteConnection {
       }
       
     }
-    
-    public ResultSet getFightStyle(String style){
-        String sql = "SELECT * FROM fight_style WHERE name='"+ style+"';";
-        
-        try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
-            
-           return rs;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-		return null;
-    }
-  
+      
     public boolean isDatabaseCreated(){
-    	File f = new File("MedievalBattle.db");
-    	if(f.exists()) { 
-    	    return true;
-    	}
-    	return false;
+    	File f = new File("MsedievalBattle.db");
+    	return f.exists();
     }
-    	
-    }
+}

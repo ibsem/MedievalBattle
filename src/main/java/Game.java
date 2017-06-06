@@ -1,12 +1,11 @@
 import java.sql.Connection;
 
 public class Game {
-	private static Player p1;
+	private Player p1;
 	private Player p2;
 	
 	
-	public static void main(String []args){
-	  SqliteConnection sqliteConnection = new SqliteConnection();
+	public static void main(String []args){ 
 	  CharacterCreation character = null;
 	  
 	  try(Connection conection = sqliteConnection.connect()){

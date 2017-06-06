@@ -37,9 +37,8 @@ public class SqliteConnection {
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-           return conn;
         }
+        return conn;
     }
     
     
@@ -59,32 +58,9 @@ public class SqliteConnection {
       }
       
     }
-    
-    public FightStyle getFightStyle(String style){
-      String sql = "SELECT * FROM fight_style WHERE name='"+ style+"';";
-      FightStyle fightStyle = new FightStyle();
-      try (Connection conn = this.connect();
-        Statement stmt  = conn.createStatement();
-        ResultSet rs    = stmt.executeQuery(sql)){
-        while(rs.next()){
-          fightStyle.setAttack(rs.getInt("attack"));
-          fightStyle.setDefense(rs.getInt("defese"));
-          fightStyle.setLuck(rs.getInt("luc"));
-          fightStyle.setSpecial(rs.getInt("special"));
-          return fightStyle;
-        }
-       }catch (SQLException e) {
-           System.out.println(e.getMessage());
-       }
-	return null;
-    }
-  
+      
     public boolean isDatabaseCreated(){
-    	File f = new File("MedievalBattle.db");
-    	if(f.exists()) { 
-    	    return true;
-    	}
-    	return false;
+    	File f = new File("MsedievalBattle.db");
+    	return f.exists();
     }
-    	
-    }
+}

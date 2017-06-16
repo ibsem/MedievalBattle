@@ -10,24 +10,25 @@
 
 ### Justificativa:
 
-O mercado de trabalho na área de T.I é cada dia mais competitivo, exigindo dos profissionais de T.I certos conhecimentos e práticas já disseminadas nas organizações, porém o ensino superior em T.I no Brasil muitas vezes não capacita os profissionais que o mercado demanda. Em razão destes fatos, trazer as práticas, tecnologias, ferramentas  e a cada dia  trazer a vivencia com as ferramentas, metodologias 
+O mercado de trabalho na área de T.I é cada dia mais competitivo, exigindo dos profissionais de T.I certos conhecimentos e práticas já disseminadas nas organizações, porém o ensino superior em T.I no Brasil muitas vezes não capacita os profissionais que o mercado demanda. Em razão destes fatos, queremos trazer as boas práticas, tecnologias, ferramentas que são exigidos no mercado para a sala de aula, de modo que as disciplinas de programação, empreendedorismo sustentável e gerenciamento de projetos sejam integradas, trabalhando em conjunto para capacitar melhor os alunos.
 
-Pela facilidade de acesso a informação, os aplicativos de celular tem sido grandes aliados a sociedade, hoje o portal que dispõe as informações sobre:
-Notas,frequências,material didático, horário de aulas, e-mails e comunicados.
-Não é responsivo e amigável a dispositivos móveis, acreditamos que com o aplicativo a experiência do usuário será melhor e mais eficiente.
+### Descrição Geral:
+ O projeto terá início em Maio  de 2017, incluindo planejamento, organização da equipe, pesquisa de usuário e levantamento de requisitos. O gerencimento da equipe e do projeto será feito utilizando a metodologia Ágil chamada SCRUM, O desenvolvimento do jogo será acompanhado do Product Owner da equipe e do cliente, garantindo que os requisitos serão entregues juntamente aos valores que o cliente espera. A aplicação será desenvolvida  em Java EE e a persistencia de dados será feita no banco de dados relacional SQLite, o código fonte do projeto estará disponível no github para que outras turmas deem continuidade ao projeto.
+	O término do ciclo de desenvolvimento está previsto para o mês de Junho de 2017.
 
-Descrição Geral: O projeto terá início em Março  de 2017, incluindo planejamento, organização, pesquisa de usuário e levantamento de requisitos. O desenvolvimento do aplicativo somente será possível com o acompanhamento do coordenador do curso suprindo as informações e privilégios necessários para a construção do mesmo. A aplicação será desenvolvida exclusivamente para o CESUSC, e estará disponível nas plataformas Android e iOS.
-	O término do ciclo de desenvolvimento está previsto para o mês de dezembro de 2019, incluindo suporte e correção de problemas reportados pelos usuários.
-Premissas:
-Apoio da coordenação e diretoria da instituição
-Adesão dos discentes
-Acesso ao banco de dados existente do UNIMESTRE
-Restrições:
-Orçamento limitado
-Disponibilidade de recursos humanos
-Disponibilidade de recursos tecnicos
-Disponibilidade de recursos fisicos
+### Premissas:
+- Apoio da coordenação e diretoria da instituição
+- Adesão dos discentes
+- Adesão dos docentes
+- Continuidade do projeto por outras turmas
 
-Riscos:
-A equipe de desenvolvimento trancar o curso.
-Não ser possível a entrega do P.I por falta de conheicmento
+### Restrições:
+- Orçamento limitado
+- Disponibilidade de recursos humanos
+- Disponibilidade de recursos tecnicos
+- Disponibilidade de recursos fisicos
+- Disponibilidade de tempo
+
+### Riscos:
+- A equipe de desenvolvimento trancar o curso.
+- Conhecimento tecnologico não suficiente para o término do projeto.

@@ -1,5 +1,6 @@
 public class Player {
 	private String name;
+	private String fightStyleName;
 	private String turnAction = null;
 	private int life;
 	private int attack;
@@ -7,6 +8,16 @@ public class Player {
 	private int luck;
 	private int special;
 	
+	
+	
+	public String getFightStyleName() {
+		return fightStyleName;
+	}
+
+	public void setFightStyleName(String fightStyleName) {
+		this.fightStyleName = fightStyleName;
+	}
+
 	public int getSpecial() {
 		return special;
 	}

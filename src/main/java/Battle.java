@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 
+
 public class Battle {
 	private boolean turn = true;// 'true' vez do jogador , 'false' vez do inimigo
 	private boolean specialC = true;// deixa o especial off apos o uso

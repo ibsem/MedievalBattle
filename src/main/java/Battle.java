@@ -1,13 +1,26 @@
 import java.util.Random;
+import java.util.logging.Level;
+import org.springframework.expression.spel.ast.Selection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+
 
 public class Battle {
 	private boolean turn = true;// 'true' vez do jogador , 'false' vez do inimigo
 	private boolean specialC = true;// deixa o especial off apos o uso
 	private boolean specialE = true;
-		
+	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
+	Date date = new Date(); 
+	
 	public String startBattle(Player character,Player enemy)throws IOException {//comeca a batalha
 		character.setLife(100);
 		enemy.setLife(100);
@@ -32,10 +45,23 @@ public class Battle {
 			}	
 		}while(character.getLife() > 0 && enemy.getLife() > 0);
 		if (enemy.getLife() <= 0){
+			this.insertScore(character);
 			return character.getNome();
 		}else{
 			return enemy.getNome();
 		}
+	}
+	
+	public void insertScore(Player character){
+		SqliteConnection sqlite = new SqliteConnection();
+       	String sql = "INSERT INTO ranking(name,score,datescore) values ('"+ character.getName()+"','"+character.getLife()+"','"+dateFormat.format(date)+"')";        
+       	try (Connection conn = sqlite.connect();
+       			Statement stmt  = conn.createStatement();){
+       			stmt.executeUpdate(sql);
+       	}
+       	catch (SQLException e) {
+       		System.out.println("Erro -> "+ e);
+       	}
 	}
 	
 	public boolean doAction(Player character, Player enemy)throws IOException {
@@ -102,7 +128,7 @@ public class Battle {
 		System.out.println("2 - Defense");
 		System.out.println("3 - Special");
 		BufferedReader choice = new BufferedReader(new InputStreamReader(System.in));
-		int playerChoice = Integer.parseInt(choice.readLine());				
+		int playerChoice = Integer.parseInt(choice.readLine());	
 	
 	switch(playerChoice){ // permite ao usuario escolher a acao
 		case 1 :

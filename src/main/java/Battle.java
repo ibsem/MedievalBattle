@@ -102,19 +102,15 @@ public class Battle {
 		if (enemy.getTurnAction() != "d" ){
 			int damage =(character.getAttack()*10);//calculo dano
 			enemy.setLife(enemy.getLife() - damage);
-			System.out.println("O "+enemy.getNome()+" perdeu "+ damage + " de sua vida");
-			System.out.println(enemy.getNome()+" vida: "+ enemy.getLife());
-			System.out.println(character.getNome()+" vida: "+ character.getLife());
+			this.printBattleLog(damage, enemy, character);
 		}else{
 			int damage = character.getAttack()*10 - enemy.getDefense()*10;
 			if(damage> 0){
 				enemy.setLife(enemy.getLife() - damage);
-				System.out.println("O "+enemy.getNome()+" perdeu "+ damage + " de sua vida");
-				System.out.println(enemy.getNome()+" vida: "+ enemy.getLife());
-				System.out.println(character.getNome()+" vida: "+ character.getLife());
+				this.printBattleLog(damage, enemy, character);
 			}else{
-				System.out.println(enemy.getNome()+" vida: "+ enemy.getLife());
-				System.out.println(character.getNome()+" vida: "+ character.getLife());
+				System.out.println("O dano foi 0!");
+				this.printBattleLog(damage, enemy, character);
 			}
 		}
 	}
@@ -122,13 +118,11 @@ public class Battle {
 	public void doSpecial(Player character, Player enemy){
 		int damage =(character.getAttack()*20);//calcula o special sem chance de defesa
 		enemy.setLife(enemy.getLife() - damage);
-		System.out.println("O "+enemy.getNome()+" perdeu "+ damage + " de sua vida");
-		System.out.println(enemy.getNome()+" vida: "+ enemy.getLife());
-		System.out.println(character.getNome()+" vida: "+ character.getLife());
+		this.printBattleLog(damage, enemy, character);
 	}
 	
 	public int pickAction(Player character)throws IOException {
-
+		System.out.println("Turno do jogador: " + character.getName() + "\n");
 		System.out.println("Escolha sua Acao ");//permite a escolha da acao
 		System.out.println("1 - Attack");
 		System.out.println("2 - Defense");
@@ -143,7 +137,7 @@ public class Battle {
 			break;
 		case 2 :
 			character.setTurnAction("d");
-			System.out.println(character.getNome()+" defendeu");
+			System.out.println(character.getNome()+" preferiu defender");
 			break;
 		case 3 :
 			character.setTurnAction("s");
@@ -168,7 +162,7 @@ public class Battle {
 				break;
 			case 1 :
 				enemy.setTurnAction("d");
-				System.out.println(enemy.getNome()+" defendeu");
+				System.out.println(enemy.getNome()+" preferiu defender");
 				break;
 			case 2 :
 				enemy.setTurnAction("s");
@@ -176,5 +170,15 @@ public class Battle {
 			default :
 				break;
 		}
+	}
+	
+	public void printBattleLog(int damage, Player enemy, Player character){
+		System.out.println("=====================");
+		System.out.println("O "+enemy.getNome()+" perdeu "+ damage + " de sua vida\n");
+		System.out.println("=====================");
+		System.out.println(enemy.getNome()+" vida: "+ enemy.getLife());
+		System.out.println(character.getNome()+" vida: "+ character.getLife());
+		System.out.println("=====================");
+		
 	}
 }
